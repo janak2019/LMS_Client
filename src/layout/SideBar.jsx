@@ -7,7 +7,7 @@ import { FaBook, FaUser } from 'react-icons/fa'
 import { BookOpenIcon, UserIcon, ChartBarIcon, Cog6ToothIcon, Squares2X2Icon, LockClosedIcon, XMarkIcon, ListBulletIcon } from "@heroicons/react/24/outline";
 import { RiAdminFill } from 'react-icons/ri';
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
-import { toogleAddNewAdminPopup } from '../slices/popUpSlice';
+import { toogleAddNewAdminPopup, toogleSettingPopup } from '../slices/popUpSlice';
 import AddNewAdmin from '../popup/AddNewAdmin';
 
 
@@ -102,7 +102,7 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
           {/* Update Credentials */}
           <button
             className="w-full flex items-center space-x-3 px-4 py-2 rounded-lg hover:bg-indigo-700 hover:scale-105 transform transition-all duration-300"
-            onClick={() => setSelectedComponent("MyBorrowedBooks")}
+            onClick={() => dispatch(toogleSettingPopup())}
           >
             <Cog6ToothIcon className="w-6 h-6 text-indigo-400" />
             <span className="font-medium">Update Credentials</span>

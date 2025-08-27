@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -10,7 +10,7 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { loading, error } = useSelector((state) => state.auth);
+  const { loading, error, message, user, isAuthenticated } = useSelector((state) => state.auth);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,15 +18,26 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const credentials = { email, password };
-
-    // Dispatch redux thunk
-    const result =  dispatch(login(credentials));
-
-    if (result.meta.requestStatus === "fulfilled") {
-      navigate("/"); // redirect after success
-    }
+    const data = new FormData()
+    data.append("email", email)
+    data.append("password", password)
+    dispatch(login(data))
   };
+  useEffect(() => {
+    if (message) {
+      toast.success(message)
+      dispatch(resetAuthSlice)
+    }
+    if (error) {
+      toast.error(error)
+      dispatch(resetAuthSlice())
+
+    }
+  }, [dispatch, isAuthenticated, error, loading])
+
+  if (isAuthenticated) {
+    return <Navigate to={"/"} />
+  }
 
   return (
     <div className="flex flex-col md:flex-row h-screen">
@@ -74,6 +85,8 @@ export default function Login() {
               />
             </div>
 
+            
+            {/* Password Input */}
             <div>
               <label htmlFor="password" className="sr-only">Password</label>
               <input
@@ -86,6 +99,17 @@ export default function Login() {
                 required
               />
             </div>
+
+            {/* Forgot Password link */}
+            <div className="flex justify-end mt-2">
+              <Link
+                to="/forgot-password"
+                className="text-sm text-gray-600 hover:text-black hover:underline transition"
+              >
+                Forgot Password?
+              </Link>
+            </div>
+
 
             {/* Error message */}
             {error && (
