@@ -11,11 +11,11 @@ const Register = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch()
-  const { loading,
-    error,
-    message,
-    user,
-    isAuthenticated, } = useSelector((state) => state.auth)
+    const { loading,
+      error,
+      message,
+      user,
+      isAuthenticated, } = useSelector((state) => state.auth)
   const navigateTo = useNavigate()
 
   const handleRegister = (e) => {

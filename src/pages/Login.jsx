@@ -21,7 +21,7 @@ export default function Login() {
     const credentials = { email, password };
 
     // Dispatch redux thunk
-    const result = await dispatch(login(credentials));
+    const result =  dispatch(login(credentials));
 
     if (result.meta.requestStatus === "fulfilled") {
       navigate("/"); // redirect after success
