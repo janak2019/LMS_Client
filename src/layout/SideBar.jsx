@@ -9,6 +9,7 @@ import { RiAdminFill } from 'react-icons/ri';
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import { toogleAddNewAdminPopup, toogleSettingPopup } from '../slices/popUpSlice';
 import AddNewAdmin from '../popup/AddNewAdmin';
+import {logout, resetAuthSlice} from "../slices/authSlice.js"
 
 
 
@@ -20,7 +21,7 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
     (state) => state.auth
   );
   const handleLogout = () => {
-    dispatch(handleLogout());
+    dispatch(logout());
   }
 
   useEffect(() => {
@@ -29,14 +30,17 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
       dispatch(resetAuthSlice());
     }
     if (message) {
-      
-      dispatch({ type: 'clearMessage' })
+      toast.success(message)      
+      dispatch(resetAuthSlice())
     }
   }, [dispatch, isAuthenticated, error, loading, message])
 
+  
+
   return (
     <>
-      <aside className={'$isSideBarOpen ? "left-0" : "-left-full"} z-10 transition-all duration-700 md:relative md:left-0 flex w-64 bg-black text-white flex-col h-full '}
+    
+      <aside className={`${isSideBarOpen ? "left-0" : "-left-full"} z-10 transition-all duration-700 md:relative md:left-0 flex w-64 bg-black text-white flex-col h-full`}
         style={{ position: "fixed" }}>
         {/* Logo */}
         <div className="px-6 py-6 flex justify-center items-center border-b border-gray-700">

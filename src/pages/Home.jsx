@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
-import Menu from '../components/Menu'
+import { GiHamburgerMenu } from "react-icons/gi"; // from react-icons
 import SideBar from '../layout/SideBar'
 import UserDashboard from '../components/UserDashboard'
 import AdminDashboard from '../components/AdminDashboard'
@@ -13,23 +13,23 @@ import MyBorrowedBooks from '../components/MyBorrowedBooks'
 
 
 const Home = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState('false') 
+  const [isSideBarOpen, setIsSideBarOpen] = useState('false') 
   const [selectedComponent, setSelectedComponent] = useState('') 
   const {user,isAuthenticated} = useSelector((state) => state.auth )
   if(!isAuthenticated){
     return <Navigate to='/login' />
   }
 
-  return (
+  return (<>
     <div className='relative md:pl-64 flex min-h-screen bg-gray-100'>
-      <div className='md:hidden z-10 absolute right-6 top-4 sm:top-6 flex justify-center items-center'>
-        <Menu className='text-2xl 
-        cursor-pointer' onClick={() => setIsSidebarOpen(!isSidebarOpen)} />
+      <div className='md:hidden z-10 absolute right-6 top-4 sm:top-6 flex justify-center items-center bg-black rounded-md h-9 w-9 text-white'>
+        <GiHamburgerMenu className='text-2xl 
+        cursor-pointer' onClick={()=> setIsSideBarOpen(!isSideBarOpen)} />
         
       </div>
-      <SideBar 
-      isSidebarOpen={isSidebarOpen} 
-      setIsSidebarOpen={setIsSidebarOpen} 
+      <SideBar
+      isSideBarOpen={isSideBarOpen} 
+      setIsSideBarOpen={setIsSideBarOpen} 
       selectedComponent={selectedComponent} 
       setSelectedComponent={setSelectedComponent}
        />
@@ -80,6 +80,7 @@ const Home = () => {
 
       
     </div>
+    </>
   )
 }
 

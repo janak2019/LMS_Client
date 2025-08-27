@@ -143,8 +143,8 @@ const authSlice = createSlice({
             state.loading = false;
             state.error = null;
             state.message = null;
-            state.user = null;
-            state.isAuthenticated = false;
+            state.user = state.user;
+            state.isAuthenticated = state.isAuthenticated;
         }
     }
 });
@@ -184,7 +184,7 @@ export const otpVerification = ({email,otp})=> async (dispatch) => {
 });
 };
 
-export const login = ({email,password})=> async (dispatch) => {
+export const login = (data)=> async (dispatch) => {
     dispatch(authSlice.actions.loginRequest());
     await axios.post('http://localhost:4000/api/v1/auth/login',data, {
     withCredentials: true,
@@ -206,23 +206,23 @@ export const getUser = (email,otp)=> async (dispatch) => {
    
 })
 .then((res) => {
-    dispatch(authSlice.actions.logoutSuccess({message: res.data.message})); 
+    dispatch(authSlice.actions.getUserSuccess({message: res.data.message})); 
     dispatch(authSlice.actions.resetAuthSlice());
 }).catch((error) => {
-    dispatch(authSlice.actions.logoutFailed(error.response?.data?.message || error.message));
+    dispatch(authSlice.actions.getUserFailed(error.response?.data?.message || error.message));
 });
 };
 
-export const logout = (email,otp)=> async (dispatch) => {
-    dispatch(authSlice.actions.getRequest());
+export const logout = ()=> async (dispatch) => {
+    dispatch(authSlice.actions.logoutRequest());
     await axios.get('http://localhost:4000/api/v1/auth/logout', {
     withCredentials: true,   
 })
 .then((res) => {
-    dispatch(authSlice.actions.getUserSuccess({message: res.data})); 
+    dispatch(authSlice.actions.logoutSuccess({message:res.data.message})); 
     
 }).catch((error) => {
-    dispatch(authSlice.actions.getUserFailed(error.response.data.message));
+    dispatch(authSlice.actions.logoutFailed(error.response.data.message));
 });
 };
 

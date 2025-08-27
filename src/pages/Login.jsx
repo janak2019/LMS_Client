@@ -4,36 +4,42 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 import logo from "../assets/logo.png"; // your logo path
-import { login } from "../slices/authSlice";
+import { login, resetAuthSlice } from "../slices/authSlice";
+import { toast } from "react-toastify";
 
 export default function Login() {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { loading, error, message, user, isAuthenticated } = useSelector((state) => state.auth);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const data = new FormData()
-    data.append("email", email)
-    data.append("password", password)
-    dispatch(login(data))
+    const loginData = {
+      email,
+      password,
+    };
+
+    dispatch(login(loginData));
   };
   useEffect(() => {
     if (message) {
-      toast.success(message)
-      dispatch(resetAuthSlice)
+      toast.success(message);
+      dispatch(resetAuthSlice());
     }
     if (error) {
-      toast.error(error)
-      dispatch(resetAuthSlice())
-
+      toast.error(error);
+      dispatch(resetAuthSlice());
     }
-  }, [dispatch, isAuthenticated, error, loading])
+  }, [dispatch, isAuthenticated, message, error]);
+
 
   if (isAuthenticated) {
     return <Navigate to={"/"} />
@@ -85,7 +91,7 @@ export default function Login() {
               />
             </div>
 
-            
+
             {/* Password Input */}
             <div>
               <label htmlFor="password" className="sr-only">Password</label>
@@ -103,7 +109,7 @@ export default function Login() {
             {/* Forgot Password link */}
             <div className="flex justify-end mt-2">
               <Link
-                to="/forgot-password"
+                to="/password/forget"
                 className="text-sm text-gray-600 hover:text-black hover:underline transition"
               >
                 Forgot Password?
