@@ -2,6 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 import { data } from 'react-router-dom';
 
+
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
@@ -142,8 +143,8 @@ const authSlice = createSlice({
             state.loading = false;
             state.error = null;
             state.message = null;
-            state.user = user;
-            state.isAuthenticated = state.isAuthenticated;
+            state.user = null;
+            state.isAuthenticated = false;
         }
     }
 });
@@ -168,22 +169,22 @@ export const register = (data)=> async (dispatch) => {
 });
 };
 
-export const otpVerification = (email,otp)=> async (dispatch) => {
+export const otpVerification = ({email,otp})=> async (dispatch) => {
     dispatch(authSlice.actions.otpVerificationRequest());
-    await axios.post('http://localhost:4000/api//v1/auth/verify-otp',{email,otp}, {
+    await axios.post('http://localhost:4000/api/v1/auth/verify-otp',{email,otp}, {
     withCredentials: true,
     headers : {
         'Content-Type': 'application/json'
     },
 })
 .then((res) => {
-    dispatch(authSlice.actions.otpVerificationSuccess({message: res.data})); 
+    dispatch(authSlice.actions.otpVerificationSuccess(res.data)); 
 }).catch((error) => {
     dispatch(authSlice.actions.otpVerificationFailed(error.response.data.message));
 });
 };
 
-export const login = (email,otp)=> async (dispatch) => {
+export const login = ({email,password})=> async (dispatch) => {
     dispatch(authSlice.actions.loginRequest());
     await axios.post('http://localhost:4000/api/v1/auth/login',data, {
     withCredentials: true,

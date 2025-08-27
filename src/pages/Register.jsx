@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import logo from '../assets/logo.png'
-import { register } from '../slices/authSlice'
+import { register, resetAuthSlice } from '../slices/authSlice'
 
 const Register = () => {
 
@@ -28,6 +28,8 @@ const Register = () => {
   }
   useEffect(() => {
     if (message) {
+      toast.success(message)
+      dispatch(resetAuthSlice)
       navigateTo(`/otp-verification/${email}`)
     }
     if (error) {

@@ -29,7 +29,7 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
       dispatch(resetAuthSlice());
     }
     if (message) {
-      alert.success(message);
+      
       dispatch({ type: 'clearMessage' })
     }
   }, [dispatch, isAuthenticated, error, loading, message])
