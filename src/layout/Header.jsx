@@ -34,11 +34,14 @@ const Header = () => {
     <div className='flex items-center gap-2'>
       <UserIcon className="w-6 h-6 text-yellow-400" />
       <div className='flex flex-col'>
-        <span className='text-sm font-medium sm:text-lg lg:text-xl sm:font-semibold'>{user && user.name}</span>
-        <span>Janak Acharya</span>
+        <span className='text-sm font-medium sm:text-lg lg:text-xl sm:font-semibold'>
+          {user && user.name}
+          </span>
+        
         <span className='text-sm font-medium sm:text-lg sm:font-medium'>
-          {user && user.role}</span>
-        <span>Admin</span>
+          {user && user.role}
+          </span>
+        
       </div>
 
     </div>

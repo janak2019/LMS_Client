@@ -2,14 +2,14 @@ import React, { use, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import logo from '../assets/logo.png'
-import DashboardIcon from '../assets/dashboard.png'
 import { FaBook, FaUser } from 'react-icons/fa'
 import { BookOpenIcon, UserIcon, ChartBarIcon, Cog6ToothIcon, Squares2X2Icon, LockClosedIcon, XMarkIcon, ListBulletIcon } from "@heroicons/react/24/outline";
 import { RiAdminFill } from 'react-icons/ri';
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
-import { toogleAddNewAdminPopup, toogleSettingPopup } from '../slices/popUpSlice';
+import { toogleAddNewAdminPopup, toogleSettingPopup } from '../store/slices/popUpSlice.js';
+
+import {logout, resetAuthSlice} from "../store/slices/authSlice.js"
 import AddNewAdmin from '../popup/AddNewAdmin';
-import {logout, resetAuthSlice} from "../slices/authSlice.js"
 
 
 
@@ -66,8 +66,8 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
             <span className="font-medium">Books</span>
           </button>
           {/* Admin Section */}
-          {isAuthenticated && user?.role === "Admin" && (
-            <>
+          {/* {isAuthenticated && user?.role === "Admin" && (
+            <> */}
               <button
                 className="w-full flex items-center space-x-3 px-4 py-2 rounded-lg hover:bg-purple-700 hover:scale-105 transform transition-all duration-300"
                 onClick={() => setSelectedComponent("Catalog")}
@@ -91,8 +91,8 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
                 <RiAdminFill className="w-6 h-6 text-red-400" />
                 <span className="font-medium">Add New Admin</span>
               </button>
-            </>
-          )}
+            {/* </> */}
+          {/* )} */}
           {/* User Section */}
           {isAuthenticated && user?.role === "User" && (
             <button

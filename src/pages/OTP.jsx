@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate, useParams } from 'react-router-dom'
-import { otpVerification, resetAuthSlice } from '../slices/authSlice'
+import { otpVerification, resetAuthSlice } from '../store/slices/authSlice'
 import { toast } from 'react-toastify'
 import logo from '../assets/logo.png'
 

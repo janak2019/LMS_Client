@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import logo from '../assets/logo.png'
-import { register, resetAuthSlice } from '../slices/authSlice'
+import { register, resetAuthSlice } from '../store/slices/authSlice'
 
 const Register = () => {
 

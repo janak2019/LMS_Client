@@ -1,38 +1,38 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png"; // adjust path as needed
+import { useDispatch, useSelector } from "react-redux";
+import { forgotPassword, resetAuthSlice } from "../store/slices/authSlice.js"
+import { toast } from "react-toastify";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch()
+
+  const { loading, error, message, user, isAuthenticated } = useSelector((state) => state.auth)
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setMessage("");
+    dispatch(forgotPassword(email))
+  }
 
-    try {
-      // Example API call
-      const res = await fetch("/api/v1/auth/password/forgot", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
 
-      const data = await res.json();
-
-      if (res.ok) {
-        setMessage("Password reset email sent. Check your inbox.");
-      } else {
-        setMessage(data.message || "Something went wrong.");
-      }
-    } catch (err) {
-      setMessage("Network error. Try again.");
+  useEffect(() => {
+    if (message) {
+      toast.success(message)
+      dispatch(resetAuthSlice())
     }
+    if (error) {
+      toast.error(error)
+      dispatch(resetAuthSlice())
 
-    setLoading(false);
-  };
+    }
+  }, [dispatch, isAuthenticated, error, loading])
+
+  if (isAuthenticated) {
+    return <Navigate to={"/"} />
+  }
+
 
   return (
     <div className="flex flex-col md:flex-row h-screen">
@@ -74,16 +74,14 @@ export default function ForgotPassword() {
               />
             </div>
 
-            {message && (
-              <p className="text-center text-sm text-green-600">{message}</p>
-            )}
+
 
             <button
               type="submit"
               disabled={loading}
               className="w-full border-2 border-black bg-black text-white font-semibold py-3 rounded-lg hover:bg-white hover:text-black transition disabled:opacity-50"
             >
-              {loading ? "Sending..." : "Send Reset Link"}
+              {loading ? "Sending..." : "Reset Password"}
             </button>
           </form>
 

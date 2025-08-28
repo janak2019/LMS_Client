@@ -1,35 +1,57 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { resetAuthSlice, resetPassword } from "../store/slices/authSlice";
+
 
 export default function ResetPassword() {
   const [email, setEmail] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const {token} = useParams()
+  const dispatch = useDispatch()
+  const { loading, error, message, user, isAuthenticated } = useSelector((state) => state.auth)
 
-  const handleSubmit = (e) => {
+  const handleResetPassword = (e) => {
     e.preventDefault();
 
-    if (!email || !newPassword || !confirmPassword) {
+    if (!email || !password || !confirmPassword) {
       toast.error("All fields are required");
       return;
     }
 
-    if (newPassword !== confirmPassword) {
+    if (password !== confirmPassword) {
       toast.error("Passwords do not match");
       return;
     }
 
-    // Send API request to reset password
-    console.log({ email, newPassword });
-
-    toast.success("Password reset request submitted!");
+    const formData = new FormData();
+    formData.append("password",password);
+    formData.append("confirmPassword",confirmPassword)
+    dispatch(resetPassword(formData,token))
   };
+  useEffect(() => {
+    if (message) {
+      toast.success(message)
+      dispatch(resetAuthSlice())
+    }
+    if (error) {
+      toast.error(error)
+      dispatch(resetAuthSlice())
+
+    }
+  }, [dispatch, isAuthenticated, error, loading])
+
+  if (isAuthenticated) {
+    return <Navigate to={"/"} />
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Reset Password</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleResetPassword} className="space-y-4">
           <div>
             <label className="block mb-1 font-medium">Email</label>
             <input
@@ -44,8 +66,8 @@ export default function ResetPassword() {
             <label className="block mb-1 font-medium">New Password</label>
             <input
               type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter new password"
             />

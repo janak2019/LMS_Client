@@ -96,7 +96,7 @@ const authSlice = createSlice({
             state.error = null;
             state.message = null;
         },
-        forgotPasswordSuccess(state, action) {
+        forgotPasswordSuccess(state,action) {
             state.loading = false;
             state.message = action.payload.message;
         },
@@ -230,7 +230,7 @@ export const logout = ()=> async (dispatch) => {
 
 
 
-export const forgotPassword = (email,otp)=> async (dispatch) => {
+export const forgotPassword = (email)=> async (dispatch) => {
     dispatch(authSlice.actions.forgotPasswordRequest());
     await axios.post('http://localhost:4000/api/v1/auth/password/forgot',{email}, {
     withCredentials: true,
@@ -239,7 +239,7 @@ export const forgotPassword = (email,otp)=> async (dispatch) => {
     },
 })
 .then((res) => {
-    dispatch(authSlice.actions.forgotPasswordSuccess({message: res.data})); 
+    dispatch(authSlice.actions.forgotPasswordSuccess({message:res.data.message})); 
 }).catch((error) => {
     dispatch(authSlice.actions.forgotPasswordFailed(error.response.data.message));
 });

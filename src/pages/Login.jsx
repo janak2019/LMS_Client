@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 import logo from "../assets/logo.png"; // your logo path
-import { login, resetAuthSlice } from "../slices/authSlice";
+import { login, resetAuthSlice } from "../store/slices/authSlice";
 import { toast } from "react-toastify";
 
 export default function Login() {
