@@ -13,14 +13,35 @@ const Users = () => {
     return result;
   }
 
-  return (
+  return (<>
     <main className='relative flex-1 p-6 pt-28'>
       <Header/>
       <header>
         <h2 className='text-xl font-medium md:text-2xl md:font-semibold'>Registered User</h2>
       </header>
+      {/* Table */}
+      {
+        users && users.filter(u=> u.role === "User").length > 0 ? (
+          <div className='mt-6 overflow-auto bg-white rounded-md shadow-lg '>
+            <table className='min-w-full border-collapse'>
+              <thead>
+                <tr className='bg-gray-200'> 
+                  <th className='px-4 py-2 text-left'>ID</th>
+                </tr>
+              </thead>
+
+
+            </table>
+          </div>
+        ):(
+          ""
+
+        )
+
+      }
 
     </main>
+  </>
   )
 }
 

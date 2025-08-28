@@ -56,7 +56,7 @@ const Home = () => {
                   break;
               case 'Users':
                 if(user?.role === 'Admin'){
-                  return <Users />
+                  return <Users/>
 
                 }
                 break;

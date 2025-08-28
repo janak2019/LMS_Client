@@ -94,7 +94,7 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
             {/* </> */}
           {/* )} */}
           {/* User Section */}
-          {isAuthenticated && user?.role === "User" && (
+          {/* {isAuthenticated && user?.role === "User" && ( */}
             <button
               className="w-full flex items-center space-x-3 px-4 py-2 rounded-lg hover:bg-indigo-700 hover:scale-105 transform transition-all duration-300"
               onClick={() => setSelectedComponent("MyBorrowedBooks")}
@@ -102,7 +102,7 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
               <Cog6ToothIcon className="w-6 h-6 text-indigo-400" />
               <span className="font-medium">My Borrowed Books</span>
             </button>
-          )}
+          {/* )} */}
           {/* Update Credentials */}
           <button
             className="w-full flex items-center space-x-3 px-4 py-2 rounded-lg hover:bg-indigo-700 hover:scale-105 transform transition-all duration-300"
