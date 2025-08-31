@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
-import { data } from 'react-router-dom';
+// import data from '../slices/'
+
 
 
 const authSlice = createSlice({
@@ -162,9 +163,9 @@ export const register = (data)=> async (dispatch) => {
         'Content-Type': 'application/json'
     },
 })
-.then((res) => {
-    dispatch(authSlice.actions.registerSuccess({message: res.data.message})); 
-}).catch((error) => {
+.then(res => {
+    dispatch(authSlice.actions.registerSuccess(res.data)); 
+}).catch(error=> {
     dispatch(authSlice.actions.registerFailed(error.response.data.message));
 });
 };
@@ -177,9 +178,9 @@ export const otpVerification = ({email,otp})=> async (dispatch) => {
         'Content-Type': 'application/json'
     },
 })
-.then((res) => {
+.then(res => {
     dispatch(authSlice.actions.otpVerificationSuccess(res.data)); 
-}).catch((error) => {
+}).catch(error => {
     dispatch(authSlice.actions.otpVerificationFailed(error.response.data.message));
 });
 };

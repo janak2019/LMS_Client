@@ -1,8 +1,12 @@
 import React from 'react'
+import Header from '../layout/Header'
 
 const BookManagement = () => {
-  return (
+  return (<>
+    <Header/>
     <div>BookManagement</div>
+
+    </>
   )
 }
 

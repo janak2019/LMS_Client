@@ -1,10 +1,12 @@
 import React from 'react'
+import Header from '../layout/Header'
 
 
 
 const AdminDashboard = () => {
   return (
-    <h1>Admin Dashboard</h1>
+    <>
+    </>
 
   )
 }

@@ -10,6 +10,7 @@ import ForgotPassword from "./pages/ForgotPassword"
 import { getUser } from "./store/slices/authSlice"
 import { useDispatch, useSelector } from "react-redux"
 
+
 function App() {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
 const dispatch = useDispatch();
