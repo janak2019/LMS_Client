@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toogleSettingPopup } from '../store/slices/popUpSlice';
 
 
-const Header = ({ sidebarWidth = "md:left-64" }) => {
+const Header = () => {
   const dispatch = useDispatch();
    const { error, message, user, isAuthenticated } = useSelector((state) => state.auth);
   
@@ -31,38 +31,33 @@ const Header = ({ sidebarWidth = "md:left-64" }) => {
 
   return (
     <header
-      className={`fixed top-0 right-0 left-0 ${sidebarWidth} bg-white shadow-md flex justify-end items-center px-6 py-4 z-40 transition-all duration-300`}
+      className={`absolute top-0 right-0 left-0 bg-white w-full shadow-md flex justify-between items-center px-6 py-4 `}
     >
+      {/* Left side content */}
+    <div>
+      <UserIcon className='h-6 w-6' />
+      <div className='flex flex-col'>
+        {/* <span className='text-sm font-medium sm-text-xl sm:font-semibold'>{user && user.name}</span> */}
+        <span className='text-sm font-medium sm-text-xl sm:font-semibold'>Janak Acharya</span>
+        {/* <span className='text-sm font-medium sm-text-xl sm:font-semibold'>{user && user.role}</span> */}
+        <span className='text-sm font-medium sm-text-xl sm:font-semibold'>Admin</span>
+      </div>
+    </div>
+
+
+
       {/* Right side content */}
-      <div className="flex items-center gap-6">
-        {/* Date / Time - only visible on md+ */}
-        <div className="hidden md:flex flex-col text-right">
+      <div className="hidden md:flex items-center gap-2">
+        
+        <div className="flex flex-col text-sm lg:text-base items-end font-semibold">
           <span className="font-semibold text-gray-700">{currentTime}</span>
           <span className="text-sm text-gray-500">{currentDate}</span>
         </div>
 
         {/* Divider - only md+ */}
-        <span className="hidden md:block h-10 w-[1px] bg-gray-300" />
+        <span className="bg-black h-14 w-[2px]" />
 
-        {/* User Info */}
-        {isAuthenticated && user ? (
-  <div className="flex items-center gap-3">
-    <UserIcon className="w-7 h-7 text-yellow-500" />
-    <div className="flex flex-col leading-tight">
-      <span className="text-base font-semibold">
-        {user.name}
-      </span>
-      <span className="text-sm text-gray-500">
-        {user.role}
-      </span>
-    </div>
-  </div>
-) : (
-  <span className="text-gray-400 text-sm">Not logged in</span>
-)}
-
-
-        {/* Settings */}
+      {/* Settings */}
         <button
           onClick={() => dispatch(toogleSettingPopup())}
           className="p-2 rounded-full hover:bg-gray-100 transition"

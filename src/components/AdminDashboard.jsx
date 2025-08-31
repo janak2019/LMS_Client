@@ -5,8 +5,8 @@ import Header from '../layout/Header'
 
 const AdminDashboard = () => {
   return (
-    <>
-    </>
+   <>
+   </>
 
   )
 }

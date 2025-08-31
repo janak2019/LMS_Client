@@ -30,7 +30,7 @@ const SettingPopup = () => {
              <header className='flex justify-between items-center mb-7 pb-5 border-b-[1px] border-b-black'>
                <div className='flex items-center gap-3'>
                  <img src={keyIcon} className='h-10 bg-gray-400 p-1 rounded-lg' alt="key-icon" />
-                 <h3 className='text-xxl font-bold'>Add New Admin</h3>
+                 <h3 className='text-xxl font-bold'>Update Credentials</h3>
                </div>
                <img src={closeIcon} className="h-4" alt="" onClick={()=>dispatch(toogleSettingPopup())} />
    

@@ -22,12 +22,11 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const loginData = {
-      email,
-      password,
-    };
+    const data = new FormData()
+    data.append("email",email)
+    data.append("password",password)
 
-    dispatch(login(loginData));
+    dispatch(login(data));
   };
   useEffect(() => {
     if (message) {

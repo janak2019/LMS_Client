@@ -12,32 +12,23 @@ import { useDispatch, useSelector } from "react-redux"
 
 
 function App() {
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const { user,
+        isAuthenticated } = useSelector((state) => state.auth);
 const dispatch = useDispatch();
 
-useEffect(() => {
-  if (isAuthenticated && !user) {
-    dispatch(getUser());
-    
-  }
-  if(isAuthenticated && user?.role ==="Admin"){
-    dispatch(fetchAllUsers());
-  }
-}, [dispatch]);
-
- 
+useEffect(() => {  
+    dispatch(getUser());   
+  
+}, []); 
 
   return (<Router>
-
-      <Routes>
-        
+      <Routes>       
         <Route path="/" element={<Home />} / >
         <Route path="/login" element={<Login/>} / >
         <Route path="/register" element={<Register />} / >
         <Route path="/password/forget" element={<ForgotPassword/>} / >
         <Route path="/otp-verification/:email" element={<OTP />} / >
         <Route path="password/reset/:token" element={<ResetPassword />} / >
-
       </Routes>  
       <ToastContainer theme="dark"  />
       

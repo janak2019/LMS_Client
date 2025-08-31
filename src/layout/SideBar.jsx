@@ -58,7 +58,7 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
   return (
     <>
       <aside
-        className={`${isSideBarOpen ? "left-0" : "-left-full"} z-10 transition-all duration-300 md:relative md:left-0 flex w-auto bg-black text-white flex-col h-full`}
+        className={`${isSideBarOpen ? "left-0" : "-left-full"} z-10 transition-all duration-700 md:relative md:left-0 flex w-auto bg-black text-white flex-col h-full`}
         style={{ position: "fixed" }}
       >
         {/* Logo */}
@@ -82,7 +82,7 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
             <span>Books</span>
           </button>
 
-          {/* {isAuthenticated && user?.role === "Admin" && ( */}
+          {isAuthenticated && user?.role === "Admin" && (
             <>
               <button
                 className='w-full py-2 font-medium bg-transparent rounded-md hover:cursor-pointer flex items-center space-x-2' onClick={() => setSelectedComponent("Catalog")}>
@@ -102,9 +102,9 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
                 <span>Add New Admin</span>
               </button>
             </>
-          {/* )} */}
+          )}
 
-          {/* {isAuthenticated && user?.role === "User" && ( */}
+          {isAuthenticated && user?.role === "User" && (
             
             <>
             <button
@@ -114,10 +114,10 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
               </button>
             </>
             
-          {/* )} */}
+           )}
 
           <button
-            className='w-full py-2 font-medium bg-transparent rounded-md hover:cursor-pointer flex items-center space-x-2' onClick={() => setSelectedComponent("Dashboard")}>
+            className='w-full py-2 font-medium bg-transparent rounded-md hover:cursor-pointer flex items-center space-x-2' onClick={() =>dispatch(toogleSettingPopup())}>
             <Cog6ToothIcon className='h-5 w-5' />
             <span>Update Credentials</span>
           </button>

@@ -11,6 +11,7 @@ const authSlice = createSlice({
         error: null,
         message: null,
         user: null,
+        
         isAuthenticated: false,
     },
     reducers: {
@@ -54,6 +55,7 @@ const authSlice = createSlice({
             state.message = action.payload.message;
             state.isAuthenticated = true;
             state.user = action.payload.user;
+            
                         
         },
         loginFailed(state,action) {

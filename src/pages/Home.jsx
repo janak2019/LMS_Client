@@ -9,6 +9,7 @@ import BookManagement from '../components/BookManagement'
 import Catalog from '../components/Catalog'
 import Users from '../components/Users'
 import MyBorrowedBooks from '../components/MyBorrowedBooks'
+import Header from '../layout/Header';
 
 
 
@@ -27,6 +28,7 @@ const Home = () => {
         cursor-pointer' onClick={()=> setIsSideBarOpen(!isSideBarOpen)} />
         
       </div>
+      <Header/>
       <SideBar
       isSideBarOpen={isSideBarOpen} 
       setIsSideBarOpen={setIsSideBarOpen} 
