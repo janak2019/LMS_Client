@@ -1,8 +1,14 @@
 import React from 'react'
+import Header from '../layout/Header'
 
 const Catalog = () => {
-  return (
+  return (<>
+  <main className='relative flex-1 p-6 pt-28'>
+      <Header/>
     <div>Catalog</div>
+
+    </main>
+    </>
   )
 }
 

@@ -8,13 +8,13 @@ const userSlice = createSlice({
         users:[],
         loading:false,
     },
-    reducers:{
+    reducers: {
         fetchAllUsersRequest(state){
             state.loading = true;
         },
         fetchAllUsersSuccess(state,action){
             state.loading = false,
-            state.users= action.payload;
+            state.users = action.payload;
 
         },
         fetchAllUsersFailed(state){
@@ -28,7 +28,7 @@ const userSlice = createSlice({
             state.loading = false;
 
         },
-        addNewAdminRequest(state){
+        addNewAdminFailed(state){
             state.loading= false;
         },
     }
@@ -36,19 +36,20 @@ const userSlice = createSlice({
 
 export const fetchAllUsers=()=>async (dispatch)=>{
     dispatch(userSlice.actions.fetchAllUsersRequest());
-    await axios.get("localhost:4000/api/v1/auth/user", {withCredentials:true}).then(res=>{
-        dispatch(userSlice.actions.fetchAllUsersSuccess(res.fata.users))
+    await axios.get("http://localhost:4000/api/v1/user/all", {withCredentials:true})
+    .then((res)=>{
+        dispatch(userSlice.actions.fetchAllUsersSuccess(res.data.users))
     }).catch((err)=>{
         dispatch(userSlice.actions.fetchAllUsersFailed(err.response.data.message))
     })
 };
 
-export const addNewAdmin=()=> async(dispatch)=>{
+export const addNewAdmin=(data)=> async(dispatch)=>{
     dispatch(userSlice.actions.addNewAdminRequest())
-    await axios.post("localhost:4000/api/v1/user/add/new-admin",data,{
+    await axios.post("http://localhost:4000/api/v1/user/add/new-admin",data,{
         withCredentials:true,
         headers:{
-            "Content-Type:=":"multipart/form-data",
+            "Content-Type":"multipart/form-data",
         },
     }).then(res=>{
         dispatch(userSlice.actions.addNewAdminSuccess());

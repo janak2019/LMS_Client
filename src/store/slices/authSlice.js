@@ -1,8 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
-// import data from '../slices/'
-
-
 
 const authSlice = createSlice({
     name: 'auth',
@@ -10,8 +7,7 @@ const authSlice = createSlice({
         loading: false,
         error: null,
         message: null,
-        user: null,
-        
+        user: null,        
         isAuthenticated: false,
     },
     reducers: {
@@ -101,7 +97,7 @@ const authSlice = createSlice({
         },
         forgotPasswordSuccess(state,action) {
             state.loading = false;
-            state.message = action.payload.message;
+            state.message = action.payload;
         },
         forgotPasswordFailed(state,action) {
             state.loading = false;
@@ -148,7 +144,18 @@ const authSlice = createSlice({
             state.message = null;
             state.user = state.user;
             state.isAuthenticated = state.isAuthenticated;
-        }
+        },
+        loadUserSuccess(state, action) {
+            state.loading = false;
+            state.isAuthenticated = true;
+            state.user = action.payload;
+        },
+        loadUserFailed(state) {
+            state.loading = false;
+            state.isAuthenticated = false;
+            state.user = null;
+        },
+
     }
 });
 
@@ -158,8 +165,7 @@ export const resetAuthSlice = () => (dispatch) => {
 
 export const register = (data)=> async (dispatch) => {
     dispatch(authSlice.actions.registerRequest());
-    await axios.post("http://localhost:4000/api/v1/auth/register", data, {
-    
+    await axios.post("http://localhost:4000/api/v1/auth/register", data, {    
     withCredentials: true,
     headers : {
         'Content-Type': 'application/json'
@@ -195,24 +201,24 @@ export const login = (data)=> async (dispatch) => {
         'Content-Type': 'application/json'
     },
 })
-.then((res) => {
-    dispatch(authSlice.actions.loginSuccess({message: res.data.message})); 
+.then(res => {
+    dispatch(authSlice.actions.loginSuccess(res.data)); 
 }).catch((error) => {
-    dispatch(authSlice.actions.loginFailed(error.response?.data?.message || error.message));
+    dispatch(authSlice.actions.loginFailed(error.response.data.message));
 });
 };
 
-export const getUser = (email,otp)=> async (dispatch) => {
-    dispatch(authSlice.actions.logoutRequest());
-    await axios.get('http://localhost:4000/api/v1/auth/logout', {
-    withCredentials: true,
-   
+export const getUser = ()=> async (dispatch) => {
+    dispatch(authSlice.actions.getUserRequest());
+    await axios.get('http://localhost:4000/api/v1/auth/me', {
+
+    withCredentials: true,  
 })
 .then((res) => {
-    dispatch(authSlice.actions.getUserSuccess({message: res.data.message})); 
-    dispatch(authSlice.actions.resetAuthSlice());
+    dispatch(authSlice.actions.getUserSuccess(res.data)); 
+    
 }).catch((error) => {
-    dispatch(authSlice.actions.getUserFailed(error.response?.data?.message || error.message));
+    dispatch(authSlice.actions.getUserFailed(error.response.data.message));
 });
 };
 
@@ -222,7 +228,7 @@ export const logout = ()=> async (dispatch) => {
     withCredentials: true,   
 })
 .then((res) => {
-    dispatch(authSlice.actions.logoutSuccess({message:res.data.message})); 
+    dispatch(authSlice.actions.logoutSuccess(res.data.message)); 
     dispatch(authSlice.actions.resetAuthSlice()); 
 
     
@@ -230,7 +236,6 @@ export const logout = ()=> async (dispatch) => {
     dispatch(authSlice.actions.logoutFailed(error.response.data.message));
 });
 };
-
 
 
 export const forgotPassword = (email)=> async (dispatch) => {
@@ -242,7 +247,7 @@ export const forgotPassword = (email)=> async (dispatch) => {
     },
 })
 .then((res) => {
-    dispatch(authSlice.actions.forgotPasswordSuccess({message:res.data.message})); 
+    dispatch(authSlice.actions.forgotPasswordSuccess(res.data.message)); 
 }).catch((error) => {
     dispatch(authSlice.actions.forgotPasswordFailed(error.response.data.message));
 });
@@ -260,7 +265,7 @@ export const resetPassword = (data,token)=> async (dispatch) => {
     },
 })
 .then((res) => {
-    dispatch(authSlice.actions.resetPasswordSuccess({message: res.data})); 
+    dispatch(authSlice.actions.resetPasswordSuccess(res.data)); 
 }).catch((error) => {
     dispatch(authSlice.actions.resetPasswordFailed(error.response.data.message));
 });
@@ -276,11 +281,13 @@ export const updatePassword = (data)=> async (dispatch) => {
     },
 })
 .then((res) => {
-    dispatch(authSlice.actions.updatePasswordSuccess({message: res.data.message})); 
+    dispatch(authSlice.actions.updatePasswordSuccess(res.data.message)); 
 }).catch((error) => {
     dispatch(authSlice.actions.updatePasswordFailed(error.response.data.message));
 });
 };
+
+
 
 export default authSlice.reducer;
 

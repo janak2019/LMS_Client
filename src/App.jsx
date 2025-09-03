@@ -9,26 +9,35 @@ import { ToastContainer } from "react-toastify"
 import ForgotPassword from "./pages/ForgotPassword"
 import { getUser } from "./store/slices/authSlice"
 import { useDispatch, useSelector } from "react-redux"
+import { fetchAllUsers } from "./store/slices/userSlice"
+import { fetchAllBooks } from "./store/slices/bookSlice"
 
 
 function App() {
-  const { user,
-        isAuthenticated } = useSelector((state) => state.auth);
+const { user,loading, isAuthenticated } = useSelector((state) => state.auth);
 const dispatch = useDispatch();
 
-useEffect(() => {  
-    dispatch(getUser());   
-  
-}, []); 
+useEffect(() => {
+  dispatch(getUser());
+    
+    if(isAuthenticated && user?.role ==="Admin"){
+      dispatch(getUser());
+     dispatch(fetchAllBooks());
+    
+      dispatch(fetchAllUsers());
+      
+    }
+   }, [isAuthenticated]);
+   if(loading) return<div>Loading...</div>
 
   return (<Router>
       <Routes>       
-        <Route path="/" element={<Home />} / >
+        <Route path="/" element={<Home/>} / >
         <Route path="/login" element={<Login/>} / >
-        <Route path="/register" element={<Register />} / >
+        <Route path="/register" element={<Register/>} / >
         <Route path="/password/forget" element={<ForgotPassword/>} / >
-        <Route path="/otp-verification/:email" element={<OTP />} / >
-        <Route path="password/reset/:token" element={<ResetPassword />} / >
+        <Route path="/otp-verification/:email" element={<OTP/>} / >
+        <Route path="password/reset/:token" element={<ResetPassword/>} / >
       </Routes>  
       <ToastContainer theme="dark"  />
       
