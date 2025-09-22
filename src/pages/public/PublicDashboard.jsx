@@ -5,12 +5,14 @@ const PublicDashboard = () => {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    // Fetch books from backend (adjust API path if needed)
-    axios
-      .get("https://lms-server-73ra.onrender.com/api/v1/book/all")
-      .then((res) => setBooks(res.data))
-      .catch((err) => console.error(err));
-  }, []);
+  axios
+    .get("https://lms-server-73ra.onrender.com/api/v1/book/all")
+    .then((res) => {
+      setBooks(res.data.books || []); // safely set array
+    })
+    .catch((err) => console.error(err));
+}, []);
+
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
