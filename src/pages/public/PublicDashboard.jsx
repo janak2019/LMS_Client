@@ -7,7 +7,7 @@ const PublicDashboard = () => {
   useEffect(() => {
     // Fetch books from backend (adjust API path if needed)
     axios
-      .get("http://localhost:5000/api/v1/books")
+      .get("https://lms-server-73ra.onrender.com/api/v1/books")
       .then((res) => setBooks(res.data))
       .catch((err) => console.error(err));
   }, []);
