@@ -10,6 +10,7 @@ import BookManagement from '../components/BookManagement'
 import Catalog from '../components/Catalog'
 import Users from '../components/Users'
 import MyBorrowedBooks from '../components/MyBorrowedBooks'
+import PublicDashboard from './public/PublicDashboard';
 
 
 
@@ -18,8 +19,9 @@ const Home = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState('false')
   const [selectedComponent, setSelectedComponent] = useState('')
   const { user, isAuthenticated } = useSelector((state) => state.auth)
+  // If user is not logged in → show Public Dashboard
   if (!isAuthenticated) {
-    return <Navigate to='/login' />
+    return <PublicDashboard />
   }
 
   return (

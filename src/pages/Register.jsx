@@ -11,7 +11,7 @@ const Register = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch()
-  const { loading, error, message, user, isAuthenticated, } = useSelector(state => state.auth)
+  const { loading, error, message, user, isAuthenticated, } = useSelector((state) => state.auth)
   const navigateTo = useNavigate()
 
   const handleRegister = (e) => {
@@ -23,16 +23,17 @@ const Register = () => {
     dispatch(register(data))
   }
   useEffect(() => {
-    if (message && email) {
+    if (message) {
       
       navigateTo(`/otp-verification/${email}`)
+      dispatch(resetAuthSlice)
     }
     if (error) {
       toast.error(error)
       dispatch(resetAuthSlice())
 
     }
-  }, [dispatch, isAuthenticated, error, loading, message, email])
+  }, [dispatch, isAuthenticated, error])
 
   if (isAuthenticated) {
     return <Navigate to={"/"} />

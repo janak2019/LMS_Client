@@ -17,8 +17,7 @@ function App() {
 const { user,loading, isAuthenticated } = useSelector((state) => state.auth);
 const dispatch = useDispatch();
 
-useEffect(() => {
-  dispatch(getUser());
+useEffect(() => { 
     
     if(isAuthenticated && user?.role ==="Admin"){
       dispatch(getUser());
@@ -30,7 +29,7 @@ useEffect(() => {
    }, [isAuthenticated]);
    if(loading) return<div>Loading...</div>
 
-  return (<Router>
+  return <Router>
       <Routes>       
         <Route path="/" element={<Home/>} / >
         <Route path="/login" element={<Login/>} / >
@@ -43,7 +42,7 @@ useEffect(() => {
       
     </Router>
     
-  )
+  
 }
 
 export default App
