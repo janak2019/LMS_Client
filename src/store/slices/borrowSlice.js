@@ -96,7 +96,7 @@ export const fetchUserBorrowedBooks = ()=>async(dispatch)=>{
 }
 export const fetchAllBorrowedBooks = ()=>async(dispatch)=>{
     dispatch(borrowSlice.actions.fetchAllBorrowedBooksRequest())
-    await axios.get("http://localhost:4000/api/v1/borrow/borrowed-books-by-users",{withCredentials:true})
+    await axios.get("https://lms-server-73ra.onrender.com/api/v1/borrow/borrowed-books-by-users",{withCredentials:true})
     .then(res=>{
         dispatch(borrowSlice.actions.fetchAllBorrowedBooksSuccess(res.data.borrowedBooks))
     })
@@ -106,7 +106,7 @@ export const fetchAllBorrowedBooks = ()=>async(dispatch)=>{
 }
 export const recordBorrowBook = (email,id)=>async(dispatch)=>{
     dispatch(borrowSlice.actions.recordBookRequest())
-    await axios.get("http://localhost:4000/api/v1/borrow/record-borrow-book/${id}",{email,id},
+    await axios.get("https://lms-server-73ra.onrender.com/api/v1/borrow/record-borrow-book/${id}",{email,id},
         {withCredentials:true,
         headers:{
             "Content-Type":"application/json",
@@ -121,7 +121,7 @@ export const recordBorrowBook = (email,id)=>async(dispatch)=>{
 }
 export const returnBook = (email,id)=>async(dispatch)=>{
     dispatch(borrowSlice.actions.returnBookRequest())
-    await axios.put("http://localhost:4000/api/v1/borrow/return-borrowed-book/${id}",{email},{
+    await axios.put("https://lms-server-73ra.onrender.com/api/v1/borrow/return-borrowed-book/${id}",{email},{
         withCredentials:true,
         headers:{
             "Content-Type":"application/json",
