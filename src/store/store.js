@@ -6,7 +6,7 @@ import bookReducer from './slices/bookSlice.js';
 import borrowReducer from './slices/borrowSlice.js';
 
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     auth: authReducer,
     popup: popupReducer,
@@ -15,3 +15,6 @@ export const store = configureStore({
     borrow: borrowReducer,
    },
 });
+
+
+export default store;

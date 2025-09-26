@@ -16,12 +16,12 @@ import PublicDashboard from './public/PublicDashboard';
 
 
 const Home = () => {
-  const [isSideBarOpen, setIsSideBarOpen] = useState('false')
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false)
   const [selectedComponent, setSelectedComponent] = useState('')
   const { user, isAuthenticated } = useSelector((state) => state.auth)
   // If user is not logged in → show Public Dashboard
   if (!isAuthenticated) {
-    return <PublicDashboard />
+    return <Navigate to={"/login"} />
   }
 
   return (
@@ -45,7 +45,7 @@ const Home = () => {
             () => {
               switch (selectedComponent) {
                 case 'Dashboard':
-                  return user?.role === 'User' ? (
+                  return user.role === 'User' ? (
                     <UserDashboard />
                   ) : (
                     <AdminDashboard />
@@ -57,12 +57,12 @@ const Home = () => {
                   break;
 
                 case 'Catalog':
-                  if (user?.role === 'Admin') {
+                  if (user.role === 'Admin') {
                     return <Catalog />
                   }
                   break;
                 case 'Users':
-                  if (user?.role === 'Admin') {
+                  if (user.role === 'Admin') {
                     return <Users />
 
                   }
@@ -72,8 +72,7 @@ const Home = () => {
                   break;
 
                 default:
-
-                  return user?.role === 'User' ? (
+                  return user.role === 'User' ? (
                     <UserDashboard />
                   ) : (
                     <AdminDashboard />

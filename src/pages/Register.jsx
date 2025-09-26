@@ -7,33 +7,33 @@ import { register, resetAuthSlice } from '../store/slices/authSlice'
 
 const Register = () => {
 
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const dispatch = useDispatch()
-  const { loading, error, message, user, isAuthenticated, } = useSelector((state) => state.auth)
-  const navigateTo = useNavigate()
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const { loading, error, message, user, isAuthenticated, } = useSelector((state) => state.auth);
+  const navigateTo = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleRegister =async (e) => {
     e.preventDefault()
     const data = new FormData()
-    data.append("name", name)
-    data.append("email", email)
-    data.append("password", password)
-    dispatch(register(data))
+    data.append("name", name);
+    data.append("email", email);
+    data.append("password", password);
+    dispatch(register(data));
+    console.log({data})
   }
   useEffect(() => {
-    if (message) {
-      
-      navigateTo(`/otp-verification/${email}`)
-      dispatch(resetAuthSlice)
-    }
-    if (error) {
-      toast.error(error)
-      dispatch(resetAuthSlice())
+  if (message) {    
+    
+      navigateTo(`/otp-verification/${email}`)      
+  }
+  if (error) {
+    toast.error(error);
+    dispatch(resetAuthSlice());
+  }
+}, [dispatch,message,email,isAuthenticated,error,navigateTo]);
 
-    }
-  }, [dispatch, isAuthenticated, error])
 
   if (isAuthenticated) {
     return <Navigate to={"/"} />
