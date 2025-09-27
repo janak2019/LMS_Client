@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
+const apiBase = "https://lms-server-73ra.onrender.com"
 const borrowSlice = createSlice({
   name: "borrow",
     initialState: {
@@ -86,7 +86,7 @@ const borrowSlice = createSlice({
 
 export const fetchUserBorrowedBooks = ()=>async(dispatch)=>{
     dispatch(borrowSlice.actions.fetchUserBorrowedBooksRequest())
-    await axios.get("http://localhost:4000/api/v1/borrow/my-borrowed-books",{withCredentials:true})
+    await axios.get(`${apiBase}/api/v1/borrow/my-borrowed-books`,{withCredentials:true})
     .then(res=>{
         dispatch(borrowSlice.actions.fetchUserBorrowedBooksSuccess(res.data.borrowedBooks))
     })
@@ -96,7 +96,7 @@ export const fetchUserBorrowedBooks = ()=>async(dispatch)=>{
 }
 export const fetchAllBorrowedBooks = ()=>async(dispatch)=>{
     dispatch(borrowSlice.actions.fetchAllBorrowedBooksRequest())
-    await axios.get("https://lms-server-73ra.onrender.com/api/v1/borrow/borrowed-books-by-users",{withCredentials:true})
+    await axios.get(`${apiBase}/api/v1/borrow/borrowed-books-by-users`,{withCredentials:true})
     .then(res=>{
         dispatch(borrowSlice.actions.fetchAllBorrowedBooksSuccess(res.data.borrowedBooks))
     })

@@ -10,7 +10,7 @@ import BookManagement from '../components/BookManagement'
 import Catalog from '../components/Catalog'
 import Users from '../components/Users'
 import MyBorrowedBooks from '../components/MyBorrowedBooks'
-import PublicDashboard from './public/PublicDashboard';
+
 
 
 
@@ -45,7 +45,7 @@ const Home = () => {
             () => {
               switch (selectedComponent) {
                 case 'Dashboard':
-                  return user.role === 'User' ? (
+                  return user?.role === 'User' ? (
                     <UserDashboard />
                   ) : (
                     <AdminDashboard />
@@ -57,12 +57,12 @@ const Home = () => {
                   break;
 
                 case 'Catalog':
-                  if (user.role === 'Admin') {
+                  if (user?.role === 'Admin') {
                     return <Catalog />
                   }
                   break;
                 case 'Users':
-                  if (user.role === 'Admin') {
+                  if (user?.role === 'Admin') {
                     return <Users />
 
                   }
@@ -72,7 +72,7 @@ const Home = () => {
                   break;
 
                 default:
-                  return user.role === 'User' ? (
+                  return user?.role === 'User' ? (
                     <UserDashboard />
                   ) : (
                     <AdminDashboard />
