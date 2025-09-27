@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
-
 import logo from "../assets/logo.png"; // your logo path
 import { login, resetAuthSlice } from "../store/slices/authSlice";
 import { toast } from "react-toastify";
@@ -13,15 +11,10 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const { loading, error, message, user, isAuthenticated } = useSelector((state) => state.auth);
-
-
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     const data = new FormData()
     data.append("email",email)
     data.append("password",password)
@@ -29,10 +22,10 @@ export default function Login() {
     dispatch(login(data));
   };
   useEffect(() => {
-    if (message) {
-      toast.success(message);
-      dispatch(resetAuthSlice());
-    }
+    // if (message) {
+    //   toast.success(message);
+    //   dispatch(resetAuthSlice());
+    // }
     if (error) {
       toast.error(error);
       dispatch(resetAuthSlice());
@@ -41,7 +34,7 @@ export default function Login() {
 
 
   if (isAuthenticated) {
-    return <Navigate to={"/"} />
+    return <Navigate to={"/"} />;
   }
 
   return (

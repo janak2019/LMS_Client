@@ -24,15 +24,16 @@ const Register = () => {
     console.log({data})
   }
   useEffect(() => {
-  if (message) {    
-    
-      navigateTo(`/otp-verification/${email}`)      
+  if (message) { 
+    toast.success(message); 
+    dispatch(resetAuthSlice());   
+    navigateTo(`/otp-verification/${email}`);     
   }
   if (error) {
     toast.error(error);
     dispatch(resetAuthSlice());
   }
-}, [dispatch,message,email,isAuthenticated,error,navigateTo]);
+}, [dispatch,isAuthenticated,error,loading]);
 
 
   if (isAuthenticated) {

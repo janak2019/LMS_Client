@@ -17,17 +17,17 @@ function App() {
 const { user,loading, isAuthenticated } = useSelector((state) => state.auth);
 const dispatch = useDispatch();
 
-useEffect(() => { 
+// useEffect(() => { 
     
-    if(isAuthenticated && user?.role ==="Admin"){
-      dispatch(getUser());
-     dispatch(fetchAllBooks());
+//     if(isAuthenticated && user?.role ==="Admin"){
+//       dispatch(getUser());
+//      dispatch(fetchAllBooks());
     
-      dispatch(fetchAllUsers());
+//       dispatch(fetchAllUsers());
       
-    }
-   }, [isAuthenticated]);
-   if(loading) return<div>Loading...</div>
+//     }
+//    }, [isAuthenticated]);
+//    if(loading) return<div>Loading...</div>
 
   return <Router>
       <Routes>       
