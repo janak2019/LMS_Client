@@ -20,9 +20,9 @@ const Home = () => {
   const [selectedComponent, setSelectedComponent] = useState('')
   const { user, isAuthenticated } = useSelector((state) => state.auth)
   // If user is not logged in → show Public Dashboard
-  // if (!isAuthenticated) {
-  //   return <Navigate to={"/login"} />
-  // }
+  if (!isAuthenticated) {
+    return <Navigate to={"/login"} />
+  }
 
   return (
     <>
