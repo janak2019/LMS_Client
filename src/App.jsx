@@ -18,17 +18,16 @@ const { user,isAuthenticated } = useSelector((state) => state.auth);
 const dispatch = useDispatch();
 
 useEffect(() => { 
-
-
+//  dispatch(getUser());
+      dispatch(fetchAllUsers());
+  dispatch(fetchAllBooks());
     if(isAuthenticated && user?.role === "Admin"){
       
-      
-      dispatch(fetchAllUsers())
-      dispatch(fetchAllBooks())
+     
       
       
-    }      
-  
+      
+    } 
    }, [isAuthenticated]);
 
   return <Router>
