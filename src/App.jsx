@@ -18,9 +18,10 @@ const { user,isAuthenticated } = useSelector((state) => state.auth);
 const dispatch = useDispatch();
 
 useEffect(() => { 
-    dispatch(getUser());
+  dispatch(getUser())
 
     if(isAuthenticated && user?.role === "Admin"){
+      
       dispatch(fetchAllUsers())
       dispatch(fetchAllBooks())
       

@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllBooks } from "../store/slices/bookSlice";
-import { fetchAllBorrowedBooks } from "../store/slices/borrowSlice";
 import { toast } from "react-toastify";
 import Header from "../layout/Header";
 import { Users, BookOpen, ClipboardList } from "lucide-react";
+import { fetchAllUsers } from "../store/slices/userSlice"; // adjust path
+
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
@@ -17,29 +17,23 @@ const AdminDashboard = () => {
     loading: borrowLoading,
     error: borrowError,
   } = useSelector((state) => state.borrow);
-  const { allUsers = [], user, isAuthenticated } = useSelector(
-    (state) => state.auth
+  const { users = [], user, isAuthenticated } = useSelector(
+    (state) => state.user
   );
-
-  // Fetch data on mount
-  useEffect(() => {
-    if (isAuthenticated && user?.role === "Admin") {
-      dispatch(fetchAllBooks());
-      dispatch(fetchAllBorrowedBooks());
-      // If you have fetchAllUsers for admin, call it here too
-    }
-  }, [dispatch, isAuthenticated, user]);
 
   // Handle errors
   useEffect(() => {
     if (bookError) toast.error(bookError);
     if (borrowError) toast.error(borrowError);
   }, [bookError, borrowError]);
-
+ useEffect(() => {
+    dispatch(fetchAllUsers());
+  }, [dispatch]);
   // Stats
   const totalBooks = books?.length || 0;
   const totalBorrowed = borrowedBooks?.length || 0;
-  const totalUsers = allUsers?.length || 0;
+  const totalUsers = users?.length || 0;
+  
 
   return (
     <main className="relative flex-1 p-6 pt-28">

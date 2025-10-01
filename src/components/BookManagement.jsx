@@ -30,11 +30,10 @@ const BookManagement = () => {
     setBorrowBookId(bookId);
     dispatch(toggleRecordBookPopup())
   };
-  // useEffect(() => {
-  //   // always fetch books on mount
-  //   dispatch(fetchAllBooks());
-  //   dispatch(fetchAllBorrowedBooks());
-  // }, [dispatch]);
+  useEffect(() => {
+    
+    dispatch(fetchAllBorrowedBooks());
+  }, [dispatch]);
   useEffect(() => {
     if (message || borrowSliceMessage) {
       toast.success(message || borrowSliceMessage)
@@ -145,24 +144,7 @@ const BookManagement = () => {
             </h3>
           )
         }
-      {/* Pagination Controls */}
-      {totalPages > 1 && (
-        <div className="flex justify-center mt-6 space-x-2">
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i + 1}
-              onClick={() => paginate(i + 1)}
-              className={`px-4 py-2 rounded-md ${
-                currentPage === i + 1
-                  ? "bg-black text-white"
-                  : "bg-gray-200 hover:bg-gray-300"
-              }`}
-            >
-              {i + 1}
-            </button>
-          ))}
-           </div>
-      )}
+      
 
       </main>
       {addBookPopup && <AddBookPopup />}
