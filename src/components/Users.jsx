@@ -1,5 +1,4 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import {useSelector } from 'react-redux'
 import Header from '../layout/Header'
 
 const Users = () => {
@@ -11,21 +10,21 @@ const Users = () => {
     const formattedTime = `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}:${String(date.getSeconds()).padStart(2, "0")}`;
     const result = `${formattedDate}${formattedTime}`;
     return result;
-  }
-    const registeredUsers = users?.filter((u) => u.role === "User") || [];
+  };
+  
+    const registeredUsers = users && users.filter((u) => u.role === "User") || [];
     
 
-  return (<>
+   return (
+  <>
 
     <main className='relative flex-1 p-6 pt-28'>
       <Header />
-      <header>
-        <h2 className='text-xl font-medium md:text-xl md:font-semibold'>Registered Users</h2>
+      <header className='flex flex-col gap-3 me:flex-row md:justify-between md:items-center'>
+        <h2 className='text-xl font-medium md:text-2xl md:font-semibold'>Registered Users</h2>
       </header>
       {/* Table */}
-      {
-      
-
+      { 
          registeredUsers.length > 0 ? (
           <div className='mt-6 overflow-auto bg-white rounded-md shadow-lg '>
             <table className='min-w-full border-collapse'>
@@ -63,14 +62,13 @@ const Users = () => {
             </table>
           </div>
         ) : (
-          <h3 className='text-xl mt-5 font-medium'>No registered users found in library</h3>
+          <h3 className='text-xl mt-2 font-medium'>No registered users found in library</h3>
 
         )
-
       }
-
     </main>
   </>
+  
   )
 }
 

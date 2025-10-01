@@ -14,20 +14,20 @@ import { fetchAllBooks } from "./store/slices/bookSlice"
 
 
 function App() {
-const { user,loading, isAuthenticated } = useSelector((state) => state.auth);
+const { user,isAuthenticated } = useSelector((state) => state.auth);
 const dispatch = useDispatch();
 
-// useEffect(() => { 
-    
-//     if(isAuthenticated && user?.role ==="Admin"){
-//       dispatch(getUser());
-//      dispatch(fetchAllBooks());
-    
-//       dispatch(fetchAllUsers());
+useEffect(() => { 
+    dispatch(getUser());
+
+    if(isAuthenticated && user?.role === "Admin"){
+      dispatch(fetchAllUsers())
+      dispatch(fetchAllBooks())
       
-//     }
-//    }, [isAuthenticated]);
-//    if(loading) return<div>Loading...</div>
+      
+    }      
+  
+   }, [isAuthenticated]);
 
   return <Router>
       <Routes>       

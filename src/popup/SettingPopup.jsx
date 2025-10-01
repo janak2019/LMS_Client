@@ -4,7 +4,7 @@ import { updatePassword } from '../store/slices/authSlice'
 
 import closeIcon from '../assets/closeIcon.png'
 import keyIcon from '../assets/keyIcon.png'
-import {toogleSettingPopup}  from '../store/slices/popUpSlice.js'
+import {toggleSettingPopup}  from '../store/slices/popUpSlice.js'
 const SettingPopup = () => {
 
   const [currentPassword,setCurrentPassword] =useState("")
@@ -32,7 +32,7 @@ const SettingPopup = () => {
                  <img src={keyIcon} className='h-10 bg-gray-400 p-1 rounded-lg' alt="key-icon" />
                  <h3 className='text-xxl font-bold'>Update Credentials</h3>
                </div>
-               <img src={closeIcon} className="h-4" alt="" onClick={()=>dispatch(toogleSettingPopup())} />
+               <img src={closeIcon} className="h-4" alt="" onClick={()=>dispatch(toggleSettingPopup())} />
    
              </header>
            </div>

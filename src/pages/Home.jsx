@@ -1,19 +1,14 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import { GiHamburgerMenu } from "react-icons/gi"; // from react-icons
-import SideBar from '../layout/SideBar'
-import UserDashboard from '../components/UserDashboard'
-import AdminDashboard from '../components/AdminDashboard'
-import BookManagement from '../components/BookManagement'
-
-import Catalog from '../components/Catalog'
-import Users from '../components/Users'
-import MyBorrowedBooks from '../components/MyBorrowedBooks'
-
-
-
-
+import SideBar from '../layout/SideBar';
+import UserDashboard from '../components/UserDashboard';
+import AdminDashboard from '../components/AdminDashboard';
+import BookManagement from '../components/BookManagement';
+import Catalog from '../components/Catalog';
+import Users from '../components/Users';
+import MyBorrowedBooks from '../components/MyBorrowedBooks';
 
 const Home = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false)

@@ -13,22 +13,22 @@ const popupSlice = createSlice({
         
     },
     reducers:{
-        toogleSettingPopup:(state)=>{
+        toggleSettingPopup:(state)=>{
             state.settingPopup = !state.settingPopup;
         },
-        toogleAddBookPopup:(state)=>{
+        toggleAddBookPopup:(state)=>{
             state.addBookPopup = !state.addBookPopup;
         },
-        toogleReadBookPopup:(state)=>{
+        toggleReadBookPopup:(state)=>{
             state.readBookPopup = !state.readBookPopup;
         },
-        toogleRecordBookPopup:(state)=>{
+        toggleRecordBookPopup:(state)=>{
             state.recordBookPopup = !state.recordBookPopup;
         },
-        toogleReturnBookPopup:(state)=>{
+        toggleReturnBookPopup:(state)=>{
             state.returnBookPopup = !state.returnBookPopup;
         },
-        toogleAddNewAdminPopup:(state)=>{
+        toggleAddNewAdminPopup:(state)=>{
             state.addNewAdminPopup = !state.addNewAdminPopup;
         },
         closeAllPopup(state){
@@ -45,12 +45,12 @@ const popupSlice = createSlice({
 
 export const {
     closeAllPopup,
-    toogleAddBookPopup,
-    toogleAddNewAdminPopup,
-    toogleReadBookPopup,
-    toogleRecordBookPopup,
-    toogleReturnBookPopup,
-    toogleSettingPopup,
+    toggleAddBookPopup,
+    toggleAddNewAdminPopup,
+    toggleReadBookPopup,
+    toggleRecordBookPopup,
+    toggleReturnBookPopup,
+    toggleSettingPopup,
     
 } = popupSlice.actions;
 

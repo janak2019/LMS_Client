@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toogleAddBookPopup } from "../store/slices/popUpSlice";
+import { toggleAddBookPopup } from "../store/slices/popUpSlice";
 import { addBook } from "../store/slices/bookSlice";
 
 const AddBookPopup = () => {
@@ -27,7 +27,7 @@ const AddBookPopup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addBook(formData));
-    dispatch(toogleAddBookPopup()); // close popup after submit
+    dispatch(toggleAddBookPopup()); // close popup after submit
   };
 
   if (!addBookPopup) return null; // don’t render unless open
@@ -107,7 +107,7 @@ const AddBookPopup = () => {
           <div className="flex justify-end gap-3 mt-4">
             <button
               type="button"
-              onClick={() => dispatch(toogleAddBookPopup())}
+              onClick={() => dispatch(toggleAddBookPopup())}
               className="px-4 py-2 rounded-md border"
             >
               Cancel

@@ -5,8 +5,8 @@ const apiBase = "https://lms-server-73ra.onrender.com"
 const userSlice = createSlice({
     name:"user",
     initialState:{
-        users:[],
-        loading:false,
+        users: [],
+        loading: false,
     },
     reducers: {
         fetchAllUsersRequest(state){
@@ -22,11 +22,9 @@ const userSlice = createSlice({
         },
         addNewAdminRequest(state){
             state.loading= true;
-
         },
         addNewAdminSuccess(state){
             state.loading = false;
-
         },
         addNewAdminFailed(state){
             state.loading= false;
@@ -37,7 +35,7 @@ const userSlice = createSlice({
 export const fetchAllUsers=()=>async (dispatch)=>{
     dispatch(userSlice.actions.fetchAllUsersRequest());
     await axios.get(`${apiBase}/api/v1/user/all`, {withCredentials:true})
-    .then((res)=>{
+    .then(res=>{
         dispatch(userSlice.actions.fetchAllUsersSuccess(res.data.users))
     }).catch((err)=>{
         dispatch(userSlice.actions.fetchAllUsersFailed(err.response.data.message))

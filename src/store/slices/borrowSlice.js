@@ -106,7 +106,7 @@ export const fetchAllBorrowedBooks = ()=>async(dispatch)=>{
 }
 export const recordBorrowBook = (email,id)=>async(dispatch)=>{
     dispatch(borrowSlice.actions.recordBookRequest())
-    await axios.get("https://lms-server-73ra.onrender.com/api/v1/borrow/record-borrow-book/${id}",{email,id},
+    await axios.get(`${apiBase}/api/v1/borrow/record-borrow-book/${id}`,{email,id},
         {withCredentials:true,
         headers:{
             "Content-Type":"application/json",
@@ -121,7 +121,7 @@ export const recordBorrowBook = (email,id)=>async(dispatch)=>{
 }
 export const returnBook = (email,id)=>async(dispatch)=>{
     dispatch(borrowSlice.actions.returnBookRequest())
-    await axios.put("https://lms-server-73ra.onrender.com/api/v1/borrow/return-borrowed-book/${id}",{email},{
+    await axios.put(`${apiBase}/api/v1/borrow/return-borrowed-book/${id}`,{email},{
         withCredentials:true,
         headers:{
             "Content-Type":"application/json",

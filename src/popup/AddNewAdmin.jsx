@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewAdmin } from "../store/slices/userSlice";
-import { toogleAddNewAdminPopup } from '../store/slices/popUpSlice';
+import { toggleAddNewAdminPopup } from '../store/slices/popUpSlice';
 import closeIcon from '../assets/closeIcon.png';
 import keyIcon from '../assets/keyIcon.png';
 import placeholder from '../assets/avatar-placeholder.png';
@@ -51,7 +51,7 @@ const AddNewAdmin = () => {
               src={closeIcon}
               className="h-5 cursor-pointer"
               alt="close"
-              onClick={() => dispatch(toogleAddNewAdminPopup())}
+              onClick={() => dispatch(toggleAddNewAdminPopup())}
             />
           </header>
 

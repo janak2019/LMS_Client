@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BookA, NotebookPen } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
-import { toogleAddBookPopup, toogleReadBookPopup, toogleRecordBookPopup } from '../store/slices/popUpSlice'
+import { toggleAddBookPopup, toggleReadBookPopup, toggleRecordBookPopup } from '../store/slices/popUpSlice'
 import { fetchAllBooks, resetBookSlice } from '../store/slices/bookSlice'
 import { fetchAllBorrowedBooks, resetBorrowSlice } from '../store/slices/borrowSlice'
 import { toast } from 'react-toastify'
@@ -23,18 +23,18 @@ const BookManagement = () => {
   const openReadPopup = (id) => {
     const book = books.find(book => book._id === id)
     setReadBook(book);
-    dispatch(toogleReadBookPopup());
+    dispatch(toggleReadBookPopup());
   }
   const [borrowBookId, setBorrowBookId] = useState("");
   const openRecordBookPopup = (bookId) => {
     setBorrowBookId(bookId);
-    dispatch(toogleRecordBookPopup())
+    dispatch(toggleRecordBookPopup())
   };
-  useEffect(() => {
-    // always fetch books on mount
-    dispatch(fetchAllBooks());
-    dispatch(fetchAllBorrowedBooks());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   // always fetch books on mount
+  //   dispatch(fetchAllBooks());
+  //   dispatch(fetchAllBorrowedBooks());
+  // }, [dispatch]);
   useEffect(() => {
     if (message || borrowSliceMessage) {
       toast.success(message || borrowSliceMessage)
@@ -68,7 +68,7 @@ const BookManagement = () => {
           <div className='flex flex-col lg:flex-row space-y-4 lg:space-y-0 g:space-x-4'>
             {
               isAuthenticated && user?.role === "Admin" && (
-                <button className='relative pl-14 w-full sm:w-52 flex gap-4 justify-center items-center py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800' onClick={() => dispatch(toogleAddBookPopup())}>
+                <button className='relative pl-14 w-full sm:w-52 flex gap-4 justify-center items-center py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800' onClick={() => dispatch(toggleAddBookPopup())}>
                   <span className='bg-white flex justify-center items-center overflow-hidden rounded-full text-black w-[25px] h-[25px] text-[27px] absolute left-5'>+</span>
                   Add Book
 
@@ -145,7 +145,24 @@ const BookManagement = () => {
             </h3>
           )
         }
-
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-6 space-x-2">
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i + 1}
+              onClick={() => paginate(i + 1)}
+              className={`px-4 py-2 rounded-md ${
+                currentPage === i + 1
+                  ? "bg-black text-white"
+                  : "bg-gray-200 hover:bg-gray-300"
+              }`}
+            >
+              {i + 1}
+            </button>
+          ))}
+           </div>
+      )}
 
       </main>
       {addBookPopup && <AddBookPopup />}

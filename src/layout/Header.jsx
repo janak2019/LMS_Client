@@ -1,7 +1,7 @@
 import { Cog6ToothIcon, UserIcon } from '@heroicons/react/24/outline';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toogleSettingPopup } from '../store/slices/popUpSlice';
+import { toggleSettingPopup } from '../store/slices/popUpSlice';
 const Header = () => {
   const dispatch = useDispatch();
   const { error, message, user, isAuthenticated } = useSelector((state) => state.auth);
@@ -44,7 +44,7 @@ const Header = () => {
         {/* Divider - only md+ */}
         <span className="bg-black h-14 w-[2px]" />
         {/* Settings */}
-        <button onClick={() => dispatch(toogleSettingPopup())} className="p-2 rounded-full hover:bg-gray-100 transition" > <Cog6ToothIcon className="w-7 h-7 text-indigo-500 hover:text-indigo-700" />
+        <button onClick={() => dispatch(toggleSettingPopup())} className="p-2 rounded-full hover:bg-gray-100 transition" > <Cog6ToothIcon className="w-7 h-7 text-indigo-500 hover:text-indigo-700" />
         </button>
       </div >
     </header >);
