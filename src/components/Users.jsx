@@ -12,7 +12,8 @@ const Users = () => {
     return result;
   };
   
-    const registeredUsers = users && users.filter((u) => u.role === "User") || [];
+    const registeredUsers = users 
+    // && users.filter((u) => u.role === "User") || [];
     
 
    return (
