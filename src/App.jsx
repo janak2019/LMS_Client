@@ -19,16 +19,16 @@ const dispatch = useDispatch();
 
 useEffect(() => { 
 //  dispatch(getUser());
-      dispatch(fetchAllUsers());
-  dispatch(fetchAllBooks());
+      
     if(isAuthenticated && user?.role === "Admin"){
       
-     
+     dispatch(fetchAllUsers());
+  dispatch(fetchAllBooks());
       
       
       
     } 
-   }, [isAuthenticated]);
+   }, [isAuthenticated,user, dispatch]);
 
   return <Router>
       <Routes>       

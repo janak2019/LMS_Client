@@ -39,21 +39,21 @@ const RecordBorrowBookPopup = ({ bookId }) => {
           <div>
             <label className="block text-sm font-medium">Select User</label>
             <select
-              name="userId"
-              value={formData.userId}
-              onChange={handleChange}
-              required
-              className="w-full border p-2 rounded-md"
-            >
-              <option value="">-- Select a User --</option>
-              {allUsers
-                .filter((u) => u.role === "User")
-                .map((u) => (
-                  <option key={u._id} value={u._id}>
-                    {u.name} ({u.email})
-                  </option>
-                ))}
-            </select>
+  name="userId"
+  value={formData.userId}
+  onChange={handleChange}
+  required
+  className="w-full border p-2 rounded-md"
+>
+  <option value="">-- Select a User --</option>
+  {allUsers
+    .filter((u) => u.role === "User") // only show normal users
+    .map((u) => (
+      <option key={u._id} value={u._id}>
+        {u.name} ({u.email})
+      </option>
+    ))}
+</select>
           </div>
 
           {/* Borrow Days */}
