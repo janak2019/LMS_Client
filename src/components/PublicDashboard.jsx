@@ -11,7 +11,8 @@ const PublicDashboard = () => {
     axios
       .get("https://lms-server-73ra.onrender.com/api/v1/book/all")
       .then((res) => {
-        setBooks(res.data.books || []); // safely set array
+       const fetchedBooks = res.data.books || [];
+    setBooks(fetchedBooks.reverse()); // newest first
       })
       .catch((err) => console.error(err));
   }, []);
