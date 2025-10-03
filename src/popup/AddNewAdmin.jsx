@@ -35,6 +35,7 @@ const AddNewAdmin = () => {
     if (avatar) formData.append("avatar", avatar);
 
     dispatch(addNewAdmin(formData));
+    dispatch(toggleAddNewAdminPopup());
   };
 
   return (

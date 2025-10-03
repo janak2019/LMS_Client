@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleRecordBookPopup } from "../store/slices/popUpSlice";
 import { recordBorrowBook } from "../store/slices/borrowSlice";
+import { fetchAllUsers } from "../store/slices/userSlice";
 
 const RecordBorrowBookPopup = ({ bookId }) => {
   const dispatch = useDispatch();
@@ -12,6 +13,9 @@ const RecordBorrowBookPopup = ({ bookId }) => {
   const [formData, setFormData] = useState({
     userId: "",
     borrowDays: 7,
+  });
+  useEffect(()=>{
+    dispatch(fetchAllUsers());
   });
 
   const handleChange = (e) => {

@@ -11,10 +11,13 @@ const AddBookPopup = () => {
   const [formData, setFormData] = useState({
     title: "",
     author: "",
+    description: "",
     quantity: 1,
     price: 0,
     availability: true,
   });
+
+  const [bookImage, setBookImage] = useState(null);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -24,19 +27,33 @@ const AddBookPopup = () => {
     }));
   };
 
+  const handleFileChange = (e) => {
+    setBookImage(e.target.files[0]);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addBook(formData));
+
+    const data = new FormData();
+    Object.keys(formData).forEach((key) => {
+      data.append(key, formData[key]);
+    });
+    if (bookImage) {
+      data.append("bookImage", bookImage);
+    }
+
+    dispatch(addBook(data));
     dispatch(toggleAddBookPopup()); // close popup after submit
   };
 
-  if (!addBookPopup) return null; // don’t render unless open
+  if (!addBookPopup) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white w-full max-w-md rounded-2xl shadow-lg p-6 relative">
         <h2 className="text-xl font-semibold mb-4">Add New Book</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Title */}
           <div>
             <label className="block text-sm font-medium">Title</label>
             <input
@@ -48,6 +65,7 @@ const AddBookPopup = () => {
               className="w-full border p-2 rounded-md"
             />
           </div>
+          {/* Author */}
           <div>
             <label className="block text-sm font-medium">Author</label>
             <input
@@ -59,6 +77,7 @@ const AddBookPopup = () => {
               className="w-full border p-2 rounded-md"
             />
           </div>
+          {/* Description */}
           <div>
             <label className="block text-sm font-medium">Description</label>
             <input
@@ -70,6 +89,7 @@ const AddBookPopup = () => {
               className="w-full border p-2 rounded-md"
             />
           </div>
+          {/* Quantity */}
           <div>
             <label className="block text-sm font-medium">Quantity</label>
             <input
@@ -82,6 +102,7 @@ const AddBookPopup = () => {
               className="w-full border p-2 rounded-md"
             />
           </div>
+          {/* Price */}
           <div>
             <label className="block text-sm font-medium">Price (Rs)</label>
             <input
@@ -94,6 +115,7 @@ const AddBookPopup = () => {
               className="w-full border p-2 rounded-md"
             />
           </div>
+          {/* Availability */}
           <div className="flex items-center gap-2">
             <input
               type="checkbox"
@@ -103,7 +125,18 @@ const AddBookPopup = () => {
             />
             <label>Available</label>
           </div>
+          {/* Book Image Upload */}
+          <div>
+            <label className="block text-sm font-medium">Book Image</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="w-full border p-2 rounded-md"
+            />
+          </div>
 
+          {/* Buttons */}
           <div className="flex justify-end gap-3 mt-4">
             <button
               type="button"
