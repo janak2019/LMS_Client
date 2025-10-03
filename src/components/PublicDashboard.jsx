@@ -6,13 +6,14 @@ const PublicDashboard = () => {
   const [search, setSearch] = useState("");
   const [authorFilter, setAuthorFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
+  const apiBase = "https://lms-server-73ra.onrender.com"
 
   useEffect(() => {
     axios
-      .get("https://lms-server-73ra.onrender.com/api/v1/book/all")
+      .get(`${apiBase}/api/v1/book/all`)
       .then((res) => {
-       const fetchedBooks = res.data.books || [];
-    setBooks(fetchedBooks.reverse()); // newest first
+        const fetchedBooks = res.data.books || [];
+        setBooks(fetchedBooks.reverse()); // newest first
       })
       .catch((err) => console.error(err));
   }, []);
@@ -111,19 +112,21 @@ const PublicDashboard = () => {
                 key={book._id || book.id}
                 className="bg-white p-4 rounded-xl shadow hover:shadow-lg transition flex flex-col"
               >
+                {/* Book Image */}
+
                 <img
-                  src={book.image || "/book.jpg"}
-                  alt={book.title}
-                  onError={(e) =>
-                    (e.currentTarget.src =
-                      "https://via.placeholder.com/300x200?text=No+Image")
+                  src={book.bookImage?.url
+                    ? `${apiBase}${book.bookImage.url}`
+                    : "/book.jpg"
                   }
-                  className="w-full h-40 object-cover rounded-md mb-3"
+                  alt={book.title}
+                  className="w-44 h-32 object-cover rounded-md"
                 />
 
+
                 <h3 className="text-lg font-bold text-gray-800">{book.title}</h3>
-                <p className="text-gray-600">by {book.author}</p>
-                <p className="text-sm text-gray-500 mt-2 line-clamp-2">{book.description}</p>
+                <p className="text-gray-600">लेखकः {book.author}</p>
+                <p className="text-sm text-gray-500 mt-2 line-clamp-2">पुस्तकको बारेमाः{book.description}</p>
               </div>
             ))}
           </div>

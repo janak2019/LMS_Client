@@ -60,7 +60,7 @@ export const addBook = (data) =>async(dispatch)=>{
     await axios.post(`${apiBase}/api/v1/book/admin/add`,data,{
         withCredentials: true,
         headers:{
-            "Content-Type":"application/json"
+            "Content-Type":"multipart/form-data"
         }
     }).then(res=>{
         dispatch(bookSlice.actions.addBookSuccess(res.data.message))

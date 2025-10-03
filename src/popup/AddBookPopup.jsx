@@ -18,6 +18,8 @@ const AddBookPopup = () => {
   });
 
   const [bookImage, setBookImage] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -28,22 +30,60 @@ const AddBookPopup = () => {
   };
 
   const handleFileChange = (e) => {
-    setBookImage(e.target.files[0]);
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Validate type
+    const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+    if (!allowedTypes.includes(file.type)) {
+      setError("Only .jpg, .jpeg, and .png files are allowed.");
+      setBookImage(null);
+      setPreview(null);
+      return;
+    }
+
+    // Validate size
+    if (file.size > 100 * 1024) {
+      setError("File size must be less than 100KB.");
+      setBookImage(null);
+      setPreview(null);
+      return;
+    }
+
+    setError("");
+    setBookImage(file);
+    setPreview(URL.createObjectURL(file));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!bookImage) {
+      setError("Book image is required.");
+      return;
+    }
+
     const data = new FormData();
     Object.keys(formData).forEach((key) => {
       data.append(key, formData[key]);
     });
-    if (bookImage) {
-      data.append("bookImage", bookImage);
-    }
+    data.append("bookImage", bookImage);
 
     dispatch(addBook(data));
     dispatch(toggleAddBookPopup()); // close popup after submit
+
+    // Reset form
+    setFormData({
+      title: "",
+      author: "",
+      description: "",
+      quantity: 1,
+      price: 0,
+      availability: true,
+    });
+    setBookImage(null);
+    setPreview(null);
+    setError("");
   };
 
   if (!addBookPopup) return null;
@@ -53,68 +93,80 @@ const AddBookPopup = () => {
       <div className="bg-white w-full max-w-md rounded-2xl shadow-lg p-6 relative">
         <h2 className="text-xl font-semibold mb-4">Add New Book</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+
           {/* Title */}
-          <div>
-            <label className="block text-sm font-medium">Title</label>
-            <input
-              type="text"
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
-              required
-              className="w-full border p-2 rounded-md"
-            />
-          </div>
+          <input
+            type="text"
+            name="title"
+            placeholder="Title"
+            value={formData.title}
+            onChange={handleChange}
+            required
+            className="w-full border p-2 rounded-md"
+          />
+
           {/* Author */}
-          <div>
-            <label className="block text-sm font-medium">Author</label>
-            <input
-              type="text"
-              name="author"
-              value={formData.author}
-              onChange={handleChange}
-              required
-              className="w-full border p-2 rounded-md"
-            />
-          </div>
+          <input
+            type="text"
+            name="author"
+            placeholder="Author"
+            value={formData.author}
+            onChange={handleChange}
+            required
+            className="w-full border p-2 rounded-md"
+          />
+
           {/* Description */}
-          <div>
-            <label className="block text-sm font-medium">Description</label>
-            <input
-              type="text"
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              required
-              className="w-full border p-2 rounded-md"
-            />
-          </div>
+          <input
+            type="text"
+            name="description"
+            placeholder="Description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+            className="w-full border p-2 rounded-md"
+          />
+
+
           {/* Quantity */}
-          <div>
-            <label className="block text-sm font-medium">Quantity</label>
+          <div className="flex flex-col">
+            <label htmlFor="quantity" className="text-sm font-medium text-gray-700">
+              Quantity
+            </label>
             <input
               type="number"
               name="quantity"
+              id="quantity"
+              placeholder="Enter quantity"
               value={formData.quantity}
               onChange={handleChange}
-              min="1"
+              min={1}
               required
-              className="w-full border p-2 rounded-md"
+              className="w-full border p-2 rounded-md focus:ring-2 focus:ring-blue-500"
             />
           </div>
+
           {/* Price */}
-          <div>
-            <label className="block text-sm font-medium">Price (Rs)</label>
+          <div className="flex flex-col">
+            <label htmlFor="price" className="text-sm font-medium text-gray-700">
+              Price (Rs)
+            </label>
             <input
               type="number"
               name="price"
+              id="price"
+              placeholder="Enter price"
               value={formData.price}
               onChange={handleChange}
-              min="0"
+              min={0}
               required
-              className="w-full border p-2 rounded-md"
+              className="w-full border p-2 rounded-md focus:ring-2 focus:ring-blue-500"
             />
           </div>
+
+
+
           {/* Availability */}
           <div className="flex items-center gap-2">
             <input
@@ -125,15 +177,22 @@ const AddBookPopup = () => {
             />
             <label>Available</label>
           </div>
-          {/* Book Image Upload */}
+
+          {/* Book Image */}
           <div>
-            <label className="block text-sm font-medium">Book Image</label>
             <input
               type="file"
               accept="image/*"
               onChange={handleFileChange}
               className="w-full border p-2 rounded-md"
             />
+            {preview && (
+              <img
+                src={preview}
+                alt="Preview"
+                className="mt-2 w-32 h-32 object-cover rounded-md"
+              />
+            )}
           </div>
 
           {/* Buttons */}
